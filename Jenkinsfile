@@ -37,7 +37,7 @@ pipeline {
                 echo "Waiting for app to start..."
                 for i in 1 2 3 4 5; do
                   sleep 5
-                  if curl -f http://localhost; then
+                  if curl -f http://localhost/docs; then
                     echo "App is up"
                     exit 0
                   fi
