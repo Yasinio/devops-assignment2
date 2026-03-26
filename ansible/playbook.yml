@@ -4,7 +4,6 @@
   become: yes
 
   tasks:
-
     - name: Install Docker
       apt:
         name: docker.io
@@ -19,5 +18,13 @@
     - name: Pull Docker image
       command: docker pull yasinio/assignment2-app:{{ image_tag }}
 
+    - name: Stop old container if running
+      command: docker stop assignment2-app
+      ignore_errors: yes
+
+    - name: Remove old container if present
+      command: docker rm assignment2-app
+      ignore_errors: yes
+
     - name: Run container
-      command: docker run -d -p 80:8000 yasinio/assignment2-app:{{ image_tag }}
+      command: docker run -d --name assignment2-app -p 80:8000 yasinio/assignment2-app:{{ image_tag }}
