@@ -6,6 +6,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -29,5 +30,12 @@ pipeline {
                 sh 'ansible-playbook ansible/playbook.yml -i inventory.ini -e image_tag=${IMAGE_TAG}'
             }
         }
+
+        stage('Verify Deployment') {
+            steps {
+                sh 'curl http://localhost'
+            }
+        }
+
     }
 }
