@@ -1,0 +1,23 @@
+---
+- name: Deploy Docker Container
+  hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+
+    - name: Pull Docker image
+      command: docker pull yasinio/assignment2-app:{{ image_tag }}
+
+    - name: Run container
+      command: docker run -d -p 80:8000 yasinio/assignment2-app:{{ image_tag }}
