@@ -27,4 +27,4 @@
       ignore_errors: yes
 
     - name: Run container
-      command: docker run -d --name assignment2-app -p 80:8000 yasinio/assignment2-app:{{ image_tag }}
+      command: docker run -d --name assignment2-app -p 80:80 yasinio/assignment2-app:{{ image_tag }}
