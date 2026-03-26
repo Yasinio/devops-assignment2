@@ -33,7 +33,18 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                sh 'curl http://localhost'
+                sh '''
+                echo "Waiting for app to start..."
+                for i in 1 2 3 4 5; do
+                  sleep 5
+                  if curl -f http://localhost; then
+                    echo "App is up"
+                    exit 0
+                  fi
+                done
+                echo "App did not become ready in time"
+                exit 1
+                '''
             }
         }
 
